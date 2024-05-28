@@ -1,0 +1,145 @@
+{
+	"name": "batch-create-azure-devops-wits",
+	"displayName": "batch-create-azure-devops-wits",
+	"description": "A VsCode Extension For Batch Create Azure Devops WorkItems",
+	"publisher": "upthen",
+	"version": "0.0.1",
+	"icon": "resources/azure-devops-128.png",
+	"engines": {
+		"vscode": "^1.89.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"configuration": [
+			{
+				"title": "Batch Create Azure Devops WorkItems",
+				"properties": {
+					"batch-create-azure-devops-wits.serverUrl": {
+						"type": "string",
+						"default": "https://dev.azure.com/",
+						"description": "The url of the server where your Azure DevOps instance is hosted. Defaults to Azure DevOps Cloud Instance."
+					},
+					"batch-create-azure-devops-wits.organization": {
+						"type": "string",
+						"default": null,
+						"description": "The Azure organization."
+					},
+					"batch-create-azure-devops-wits.personalAccessToken": {
+						"type": "string",
+						"default": null,
+						"description": "The Azure personal access token."
+					},
+					"batch-create-azure-devops-wits.project": {
+						"type": "string",
+						"default": null,
+						"description": "The Azure project."
+					},
+					"batch-create-azure-devops-wits.team": {
+						"type": "string",
+						"default": null,
+						"description": "The Azure team."
+					},
+					"batch-create-azure-devops-wits.iteration": {
+						"type": "string",
+						"default": null,
+						"description": "The iteration you would like to display work items for. You can run the Set Iteration command to get values to populate this setting."
+					}
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "batch-create-azure-devops-wits.helloWorld",
+				"title": "Hello World"
+			},
+			{
+				"command": "batch-create-azure-devops-wits.open-config-settings",
+				"title": "Batch Create WorkItems : Open Configuration Settings",
+				"icon": {
+					"light": "resources/light/settings.svg",
+					"dark": "resources/dark/settings.svg"
+				}
+			},
+			{
+				"command": "batch-create-azure-devops-wits.set-iteration",
+				"title": "Batch Create WorkItems: Set Iteration",
+				"icon": {
+					"light": "resources/light/iteration.svg",
+					"dark": "resources/dark/iteration.svg"
+				}
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "batch-create-azure-devops-wits-boards",
+					"title": "Batch Create Azure Devops WorkItems",
+					"icon": "resources/azure-devops.svg"
+				}
+			]
+		},
+		"views": {
+			"batch-create-azure-devops-wits-boards": [
+				{
+					"id": "batch-create-azure-devops-wits.open-boards",
+					"name": "Boards",
+					"contextualTitle": "Boards",
+					"icon": "resources/azure-devops.svg"
+				},
+				{
+					"id": "batch-create-azure-devops-wits.open-backlogs",
+					"name": "BackLogs",
+					"contextualTitle": "BackLogs",
+					"visibility": "collapsed"
+				}
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "batch-create-azure-devops-wits.open-boards",
+				"contents": "In order to use the Batch Create Azure Devops WorkItems extension you must set some default settings.\n[Open Settings](command:batch-create-azure-devops-wits.open-config-settings)\n[Set Iteration](command:batch-create-azure-devops-wits.set-iteration)"
+			},
+			{
+				"view": "batch-create-azure-devops-wits.open-backlogs",
+				"contents": "In order to use the Batch Create Azure Devops WorkItems extension you must set some default settings.\n[Open Settings](command:batch-create-azure-devops-wits.open-config-settings)\n[Set Iteration](command:batch-create-azure-devops-wits.set-iteration)"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "pnpm run package",
+		"compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+		"watch": "npm-run-all -p watch:*",
+		"watch:esbuild": "node esbuild.js --watch",
+		"watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+		"package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+		"compile-tests": "tsc -p . --outDir out",
+		"watch-tests": "tsc -p . -w --outDir out",
+		"pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+		"check-types": "tsc --noEmit",
+		"lint": "eslint src --ext ts",
+		"test": "vscode-test"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.3.0",
+		"@types/mocha": "^10.0.6",
+		"@types/node": "18.x",
+		"@types/vscode": "^1.89.0",
+		"@typescript-eslint/eslint-plugin": "^7.7.1",
+		"@typescript-eslint/parser": "^7.7.1",
+		"@vscode/test-cli": "^0.0.9",
+		"@vscode/test-electron": "^2.3.9",
+		"esbuild": "^0.20.2",
+		"eslint": "^9.3.0",
+		"globals": "^15.3.0",
+		"npm-run-all": "^4.1.5",
+		"typescript": "^5.4.5",
+		"typescript-eslint": "^7.11.0"
+	},
+	"dependencies": {
+		"@upthen/prettier-config": "^1.0.3"
+	}
+}
